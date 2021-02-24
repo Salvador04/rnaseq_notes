@@ -447,9 +447,9 @@ library(&quot;iSEE&quot;)</code></pre>
 <pre class="r"><code>## Descarguemos unos datos de spatialLIBD
 sce_layer &lt;- spatialLIBD::fetch_data(&quot;sce_layer&quot;)</code></pre>
 <pre><code>## snapshotDate(): 2020-10-27</code></pre>
-<pre><code>## using temporary cache /tmp/RtmpREviSE/BiocFileCache</code></pre>
+<pre><code>## using temporary cache /tmp/Rtmp1M2fnA/BiocFileCache</code></pre>
 <pre><code>## adding rname &#39;https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1&#39;</code></pre>
-<pre><code>## 2021-02-24 12:00:17 loading file /tmp/RtmpREviSE/BiocFileCache/ed2430aa746a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</code></pre>
+<pre><code>## 2021-02-24 14:14:43 loading file /tmp/Rtmp1M2fnA/BiocFileCache/10c154b6a17e9_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</code></pre>
 <pre class="r"><code>## Revisemos el tamaño de este objeto
 pryr::object_size(sce_layer)</code></pre>
 <pre><code>## Registered S3 method overwritten by &#39;pryr&#39;:
@@ -465,7 +465,120 @@ pryr::object_size(sce_layer)</code></pre>
 <li>Son mas parecidos MOBP y MBP, como podemos observar en la imagen de <em>ComplexHeatmapPlot2.pdf</em></li>
 </ul>
 <p><strong>¿En qué capas se expresan más los genes MOBP y MBP?</strong></p>
+<ul>
+<li>Ambos genes tienen más presencia en las capas WM, L6 y un poco en L1., como podemos observar en la imagen de <em>ComplexHeatmapPlot1.pdf</em></li>
+</ul>
 </div>
+</div>
+<div id="datos-de-rna-seq-a-través-de-recount3" class="section level1">
+<h1>Datos de RNA-seq a través de recount3</h1>
+<p><strong>Proyecto recunt</strong>: precesar datos de RNA-seq publicos para facilitar el acceso y uso de la información en análisis trancriptómicos. Actualmente solo hay datos de humano y ratón.</p>
+<pre class="r"><code>## Load recount3 R package
+library(&quot;recount3&quot;)
+
+## Revisemos todos los proyectos con datos de humano en recount3
+human_projects &lt;- available_projects()</code></pre>
+<pre><code>## 2021-02-24 14:14:49 caching file sra.recount_project.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/sra.recount_project.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:14:55 caching file gtex.recount_project.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/gtex/metadata/gtex.recount_project.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:14:58 caching file tcga.recount_project.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/tcga/metadata/tcga.recount_project.MD.gz&#39;</code></pre>
+<pre class="r"><code>## Encuentra tu proyecto de interés. Aquí usaremos
+## SRP009615 de ejemplo
+proj_info &lt;- subset(
+    human_projects,
+    project == &quot;SRP009615&quot; &amp; project_type == &quot;data_sources&quot;
+)
+## Crea un objetio de tipo RangedSummarizedExperiment (RSE)
+## con la información a nivel de genes
+rse_gene_SRP009615 &lt;- create_rse(proj_info)</code></pre>
+<pre><code>## 2021-02-24 14:15:09 downloading and reading the metadata.</code></pre>
+<pre><code>## 2021-02-24 14:15:11 caching file sra.sra.SRP009615.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/15/SRP009615/sra.sra.SRP009615.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:13 caching file sra.recount_project.SRP009615.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/15/SRP009615/sra.recount_project.SRP009615.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:17 caching file sra.recount_qc.SRP009615.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/15/SRP009615/sra.recount_qc.SRP009615.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:20 caching file sra.recount_seq_qc.SRP009615.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/15/SRP009615/sra.recount_seq_qc.SRP009615.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:23 caching file sra.recount_pred.SRP009615.MD.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/metadata/15/SRP009615/sra.recount_pred.SRP009615.MD.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:27 downloading and reading the feature information.</code></pre>
+<pre><code>## 2021-02-24 14:15:27 caching file human.gene_sums.G026.gtf.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/annotations/gene_sums/human.gene_sums.G026.gtf.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:32 downloading and reading the counts: 12 samples across 63856 features.</code></pre>
+<pre><code>## 2021-02-24 14:15:34 caching file sra.gene_sums.SRP009615.G026.gz.</code></pre>
+<pre><code>## adding rname &#39;http://duffel.rail.bio/recount3/human/data_sources/sra/gene_sums/15/SRP009615/sra.gene_sums.SRP009615.G026.gz&#39;</code></pre>
+<pre><code>## 2021-02-24 14:15:38 construcing the RangedSummarizedExperiment (rse) object.</code></pre>
+<pre class="r"><code>## Explora el objeto RSE
+rse_gene_SRP009615</code></pre>
+<pre><code>## class: RangedSummarizedExperiment 
+## dim: 63856 12 
+## metadata(8): time_created recount3_version ... annotation recount3_url
+## assays(1): raw_counts
+## rownames(63856): ENSG00000278704.1 ENSG00000277400.1 ...
+##   ENSG00000182484.15_PAR_Y ENSG00000227159.8_PAR_Y
+## rowData names(10): source type ... havana_gene tag
+## colnames(12): SRR387777 SRR387778 ... SRR389077 SRR389078
+## colData names(175): rail_id external_id ...
+##   recount_pred.curated.cell_line BigWigURL</code></pre>
+<pre class="r"><code>## Explora los proyectos disponibles de forma interactiva
+#proj_info_interactive &lt;- interactiveDisplayBase::display(human_projects)
+## Selecciona un solo renglón en la tabla y da click en &quot;send&quot;.
+
+## Aquí verificamos que solo seleccionaste un solo renglón.
+#stopifnot(nrow(proj_info_interactive) == 1)
+## Crea el objeto RSE
+#rse_gene_interactive &lt;- create_rse(proj_info_interactive)
+
+## Convirtamos las cuentas por nucleotido a cuentas por lectura
+## usando compute_read_counts().
+## Para otras transformaciones como RPKM y TPM, revisa transform_counts().
+assay(rse_gene_SRP009615, &quot;counts&quot;) &lt;- compute_read_counts(rse_gene_SRP009615)
+
+## Para este estudio en específico, hagamos más fácil de usar la
+## información del experimento
+rse_gene_SRP009615 &lt;- expand_sra_attributes(rse_gene_SRP009615)
+colData(rse_gene_SRP009615)[
+    ,
+    grepl(&quot;^sra_attribute&quot;, colnames(colData(rse_gene_SRP009615)))
+]</code></pre>
+<pre><code>## DataFrame with 12 rows and 4 columns
+##           sra_attribute.cells sra_attribute.shRNA_expression
+##                   &lt;character&gt;                    &lt;character&gt;
+## SRR387777                K562                             no
+## SRR387778                K562             yes, targeting SRF
+## SRR387779                K562                             no
+## SRR387780                K562              yes targeting SRF
+## SRR389079                K562            no shRNA expression
+## ...                       ...                            ...
+## SRR389082                K562         expressing shRNA tar..
+## SRR389083                K562            no shRNA expression
+## SRR389084                K562         expressing shRNA tar..
+## SRR389077                K562            no shRNA expression
+## SRR389078                K562         expressing shRNA tar..
+##           sra_attribute.source_name sra_attribute.treatment
+##                         &lt;character&gt;             &lt;character&gt;
+## SRR387777                    SL2933               Puromycin
+## SRR387778                    SL2934  Puromycin, doxycycline
+## SRR387779                    SL5265               Puromycin
+## SRR387780                    SL3141  Puromycin, doxycycline
+## SRR389079                    SL6485               Puromycin
+## ...                             ...                     ...
+## SRR389082                    SL2592  Puromycin, doxycycline
+## SRR389083                    SL4337               Puromycin
+## SRR389084                    SL4326  Puromycin, doxycycline
+## SRR389077                    SL1584               Puromycin
+## SRR389078                    SL1583  Puromycin, doxycycline</code></pre>
+<pre class="r"><code>#iSEE::iSEE(rse_gene_SRP009615)</code></pre>
+</div>
+<div id="ejercicio-utiliza-isee-para-reproducir-la-imagen" class="section level1">
+<h1>Ejercicio: Utiliza iSEE para reproducir la imagen</h1>
+<p><strong>Pistas</strong>: - Utiliza el dynamic feature selection - Utiliza información de las columnas para el eje X - Utiliza información de las columnas para los colores</p>
+<ul>
+<li>La imagen se encuentra en el archivo <em>FeatureAssayPlot1.pdf</em></li>
+</ul>
 </div>
 
 
