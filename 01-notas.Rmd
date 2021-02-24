@@ -1,0 +1,132 @@
+Licenciatura en ciencias genómicas -Bioinformática y estadística 2
+
+**Salvador González Juárez**
+
+# Notas 23 de marzo
+
+## RStudio:
+
+Realizar proyectos en RStudio
+
+```
+usethis::create_project("~/rnaseq_notes")
+
+## Para poder conectar tu compu con GitHub
+usethis::create_github_token() ## Abrirá una página web, escoje un nombre único
+## y luego da click en el botón verde al final. Después copia el token
+## (son 40 caracteres)
+
+gitcreds::gitcreds_set() ## Ojo, copia el token, no tu password de git!
+## Si no, terminaras en la situación descrita en
+## https://github.com/r-lib/usethis/issues/1347
+
+## Configura tu usuario de GitHub
+usethis::edit_git_config()
+# [user]
+#   name = Elizabeth-mqz-gmz
+#   email = elimqzgmzhp@comunidad.unam.mx
+
+## Para inicializar el repositorio de Git
+usethis::use_git()
+
+## Para conectar tu repositorio local de Git con los servidores de GitHub
+usethis::use_github()
+```
+
+## Bioconductor:
+
+Se trata de un sofware de R que posee una amplia gama de cmponentes (paquetes) relacionados al análisis estadístico y el manejo de resultados de ensayos biológicos. Los objetivos generales del proyecto Bioconductor son:
+
+- Proporcionar acceso generalizado a una amplia gama de métodos estadísticos y gráficos de gran alcance para el análisis de datos genómicos.
+- Facilitar la inclusión de metadatos biológicos en el análisis de datos genómicos.
+- Proporcionar una plataforma de software común que permita el rápido desarrollo e implementación de software extensible, escalable e interoperable.
+- Fomentar la comprensión científica mediante la producción de documentación de alta calidad e investigación reproducible.
+- Formar investigadores en métodos computacionales y estadísticos para el análisis de datos genómicos.
+
+Bioconductor juega un papel muy importante en el campo de la genomica, ya que sus componentes son útiles para realizar análisis de arreglos de oligonucleótidos, secuencias biológicas, citometría de flujo, entre otros. Además permite la extracción de datos y anotación en bases de datos como GenBank, Entrez genes and PubMed.
+
+**Tipos de paquetes de Bioconductor:**
+
+- Software: tipo de paquete principal; la mayoría los hacen usuarios aunque algunos los hacen gente pagada directamente por Bioconductor.
+- Annotation: facilitan el interactuar con bases de datos de anotación.
+- Experiment Data: contienen datos para algún artículo o datos que se usan en ejemplos más exhaustivos.
+- Workflows: demuestran como puedes usar varios paquetes de Bioconductor para ciertos tipos de análisis.
+
+**Estructura de un paquete de Bioconductor:**
+
+Cada paquete de Bioconductor contiene una o más *vignettes*, las cuales son documentos que proporcionan una descripción textual orientada a la tarea de la funcionalidad del paquete. Practicamente son manuales del paquete, y son muy interesantes ya que algunos contienen una descripción profunda, además de ejemplos del uso de funciones, clases, etc. Para encontrar la información de algun paquete, es necesario buscarlo como `https://bioconductor.org/packages/<pkg_name>`
+
+El formato es el siguiente:
+
+- Badges (etiquetas): rápidamente podemos evaluar como está
+- Parráfo de descripción del paquete
+- Cómo citar al paquete de Bioconductor
+- Cómo instalarlo. Más detalles en [http://bioconductor.org/install/](http://bioconductor.org/install/)
+- Documentación:
+    - Una líga por cada vignette en formato PDF o HTML. Una vignette es donde los autores del paquete explican cómo usar las diferentes funciones del paquete y en qué orden
+- Detalles:
+    - Términos de `biocViews`
+    - Cómo se relaciona a otros paquetes (dependencias)
+    - URL: donde puedes encontrar el código fuente
+    - BugReports: donde puedes pedir ayuda
+- Más detalles sobre el paquete:
+    - Estadísticas de descargas
+
+# Trabajo grupal
+
+**Equipo:**
+- Salvador González Juárez
+- Paulina Rosales Becerra
+- Azaid Ordaz Arias
+- Athena Tamayo Louise
+
+## VERSO:
+
+- **URL**: http://bioconductor.org/packages/release/bioc/html/VERSO.html
+- **Resumen**: Paquete capaz de procesar perfiles variantes de muestras virales para producir modelos filogenéticos de evolución viral.
+- **Opinión**: Es compatible con todas las plataformas y su URL está disponible explícitamente. Es un paquete reciente y por eso no tiene interrogantes. Su documentación es aceptable. Yo creo que puede ser un paquete muy útil para hacer análisis de Sars-Cov-2.
+
+## Repitools
+
+- **URL**: http://bioconductor.org/packages/release/bioc/html/Repitools.html
+- **Resumen**: Tools for the analysis of enrichment-based epigenomic data.
+- **Opinión**: Es compatible con todas las plataformas, sin embargo su URL no está disponible explícitamente. Además, tiene algunos problemas al emplearse en un sistema operativo Windows. Su manual es muy claro, pero su documentación no tanto. Su URL no está disponible. Es posible que existan otros paquetes que hagan lo mismo y esten mejor documentados, po lo que primero buscaría otras opciones antes de decidir utilizar esta.
+
+## microbiomeExplorer
+
+- **URL**: https://bioconductor.org/packages/release/bioc/html/microbiomeExplorer.html
+- **Resumen**: Elabora y analiza flujos de trabajo analiticos del microbioma tipico.
+- **Opinión**: El paquete es compatible en todas las plataformas, sin embargo el link del repositorio en GitHub no esta indicado explicitamente.Después de una búsqueda sus códigos si tienen documentación y las interrogantes sí tienen un seguimiento. Por lo tanto, creo que es un buen paquete para analizar datos del microbioma.
+
+## GenomicFeatures
+
+- **URL**: https://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html
+- **Resumen**: Permite elaborar y manipular anotaciones transcriptomicas.
+- **Opinión**: El paquete esta disponible para todos los sistemas operativos, pero hay alertas de inestabilidad en Windows. El link del repositorio se muestra oportunamente, y se han respondido todas las preguntas. Es un paquete bien documentado, su manual incluye ejemplos, por lo tanto, es una herramienta que consideraria esencial en su campo.
+
+## riboSeqR
+
+- **URL**: https://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html
+- **Resumen**: Métodos para parsear perfiles de datos ribosomales e inferir marcos de lectura. 
+- **Opinión**: Es compatible con todas las plataformas, sin embargo su URL no está disponible explícitamente. Su manual es muy bueno, ya que contiene muchísimos ejemplos. No hay enlaces a algún github específico, pero el que encontré está poco documentado y aparentemente no ha sido curado desde hace 3 años. Yo no lo usaría, porque no parece ser muy utilizado por la comunidad, y sus funciones probablemente se puedan realizar con otros paquetes.
+
+## GenomicAlignments
+
+- **URL**: https://bioconductor.org/packages/GenomicAlignments/
+- **Resumen**: Paquete fundamental para representar alineamientos genómicos dentro de Bioconductor. 
+- **Opinión**: Es compatible con todas las plataformas y su URL está disponible. Además, indica explícitamente en donde se encuentran las dudas de la comunidad sobre dicho paquete. Se han contestado la mitad de las preguntas hechas (7 de 14). Han sido muy pocas interrogantes para un software de hace más de 7 años, lo cual habla de su buena estabilidad. Su manual es aceptable e incluye ejemplos. Yo lo usaría porque parece ser esencial para trabajar y manipular alineamientos, los cuales son básicos en el análisis bioinformático.
+
+## GenomeInfoDb
+
+- **URL**: http://bioconductor.org/packages/release/bioc/html/GenomeInfoDb.html
+- **Resumen**: Contiene utilidades que definen y permiten la traducción entre diferentes convenciones de nomenclatura de secuencias cromosómicas.
+- **Opinión**: Es un paquete de 7 años, sin embargo sigue siendo compatible para todos los sistemas. Lo malo es que no cuenta con URL para ver su documentación. Además es un paquete ampliamente utilizada. Muchas de las interrogantes han sido contestadas. Por lo tanto, considero que es importante y lo usaría para resolver problemas cotidianos al analizar secuencias cromosómicas.
+
+## ProteoMM
+
+- **URL**: http://bioconductor.org/packages/release/bioc/html/ProteoMM.html
+- **Resumen**: Es un método estadístico para realizar análisis de expresión diferencial a nivel de péptidos basados en modelos de conjuntos de datos únicos o múltiples.
+- **Opinión**: Es compatible con todos los sistemas operativos, pero no cuenta con un URL indicado explisitamente. El paquete es considerablemente reciente, pero tiene mucho potencial, ya que posee una buena documentación y aparentemente es muy robusto. Por lo tanto, yo lo utilizaria al análizar expresión proteica. 
+
+
+
