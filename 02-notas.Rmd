@@ -1,6 +1,23 @@
 ---
 output: html_document
 ---
+
+# Notas 24 de marzo
+
+## Objetos de Bioconductor para datos de expresion
+
+### Paquete rnaseqGene
+
+- URL: [https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html](https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html)
+
+Bioconductor tiene muchos paquetes que admiten el análisis de datos de secuencia de alto rendimiento, incluida la secuenciación de ARN (RNA-seq). Los paquetes que usaremos en este flujo de trabajo incluyen paquetes centrales mantenidos por el equipo central de Bioconductor para trabajar con anotaciones de genes (ubicaciones de genes y transcripciones en el genoma, así como búsqueda de ID de genes). También utilizaremos paquetes contribuidos para el análisis estadístico y la visualización de datos de secuenciación.
+
+- SummarizedExperiment: Matriz donde se puede visualizar las muestras (columnas) de multiples genes (filas). Tambien puede tener multiples tablas e información del experimento.
+- GRanges: Estructura para almacenar de forma eficiente la información de los genes. Es obtenido de una dependencia con el mismo nombre: GenomicRanges ([https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html)).
+- tracklayer: Útil para leer archivos de texto de diferentes formatos, con enfasis bioinformático.
+
+---
+
 # SummarizedExperiment
 
 ```{r}
@@ -63,12 +80,48 @@ colData(rse)
 
 ## Explora el objeto rse de forma interactiva
 library("iSEE")
-iSEE::iSEE(rse)
+#iSEE::iSEE(rse)
 ```
+
+## ¿Como utilizar el objeto SummarizedExperiment?
+
+**class** → Nombre del objeto.
+
+**dim** → Dimesiones de la matriz.
+
+**assay** → Son los datos de un experimento, pueden haber varias tablas con distintos datos.
+
+**rownames** → el nombre de los genes.
+
+**rowData names** → nombre general de las filas.
+
+**colnames** → el nombre de las muestras.
+
+**colData names** → nombre general de las columnas (muestras)
 
 ---
 
-# Ejercicio con spatialLIBD
+## Ejercicio: Explica que sucede en las siguientes líneas de código de R.
+
+**Comando 1**
+```{R}
+rse[1:2, ]
+```
+
+- Obtenemos los primeros dos genes de todas las muestras.
+
+**Comando 2**
+```{R}
+rse[, c("A", "D", "F")]
+```
+
+- Obtenemos todos los genes de las muestras A, D y F.
+
+---
+
+## Ejercicio con spatialLIBD
+
+**Descarga un PDF que reproduzca la imagen de la diapositiva. Incluye ese PDF en tu repositorio de notas del curso.**
 
 ```{r}
 ## Descarguemos unos datos de spatialLIBD
@@ -77,6 +130,13 @@ sce_layer <- spatialLIBD::fetch_data("sce_layer")
 ## Revisemos el tamaño de este objeto
 pryr::object_size(sce_layer)
 
-iSEE::iSEE(sce_layer)
+#iSEE::iSEE(sce_layer)
 ```
 
+- La imagen se encuentra en el archivo *ReducedDimensionPlot1.pdf*
+
+**Explora en con un heatmap la expresión de los genes MOBP, MBP y PCP4. Si hacemos un clustering (agrupamos los genes), ¿cúales genes se parecen más?**
+
+- Son mas parecidos MOBP  y MBP, como podemos observar en la imagen de *ComplexHeatmapPlot2.pdf*
+
+**¿En qué capas se expresan más los genes MOBP y MBP?**

@@ -167,6 +167,25 @@ pre code {
 </div>
 
 
+<div id="notas-24-de-marzo" class="section level1">
+<h1>Notas 24 de marzo</h1>
+<div id="objetos-de-bioconductor-para-datos-de-expresion" class="section level2">
+<h2>Objetos de Bioconductor para datos de expresion</h2>
+<div id="paquete-rnaseqgene" class="section level3">
+<h3>Paquete rnaseqGene</h3>
+<ul>
+<li>URL: <a href="https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html">https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html</a></li>
+</ul>
+<p>Bioconductor tiene muchos paquetes que admiten el análisis de datos de secuencia de alto rendimiento, incluida la secuenciación de ARN (RNA-seq). Los paquetes que usaremos en este flujo de trabajo incluyen paquetes centrales mantenidos por el equipo central de Bioconductor para trabajar con anotaciones de genes (ubicaciones de genes y transcripciones en el genoma, así como búsqueda de ID de genes). También utilizaremos paquetes contribuidos para el análisis estadístico y la visualización de datos de secuenciación.</p>
+<ul>
+<li>SummarizedExperiment: Matriz donde se puede visualizar las muestras (columnas) de multiples genes (filas). Tambien puede tener multiples tablas e información del experimento.</li>
+<li>GRanges: Estructura para almacenar de forma eficiente la información de los genes. Es obtenido de una dependencia con el mismo nombre: GenomicRanges (<a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html</a>).</li>
+<li>tracklayer: Útil para leer archivos de texto de diferentes formatos, con enfasis bioinformático.</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
 <div id="summarizedexperiment" class="section level1">
 <h1>SummarizedExperiment</h1>
 <pre class="r"><code>## Lets build our first SummarizedExperiment object
@@ -380,12 +399,73 @@ colData(rse)</code></pre>
 <pre class="r"><code>## Explora el objeto rse de forma interactiva
 library(&quot;iSEE&quot;)</code></pre>
 <pre><code>## Loading required package: SingleCellExperiment</code></pre>
-<pre class="r"><code>iSEE::iSEE(rse)</code></pre>
-<p><div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div></p>
+<pre class="r"><code>#iSEE::iSEE(rse)</code></pre>
+<div id="como-utilizar-el-objeto-summarizedexperiment" class="section level2">
+<h2>¿Como utilizar el objeto SummarizedExperiment?</h2>
+<p><strong>class</strong> → Nombre del objeto.</p>
+<p><strong>dim</strong> → Dimesiones de la matriz.</p>
+<p><strong>assay</strong> → Son los datos de un experimento, pueden haber varias tablas con distintos datos.</p>
+<p><strong>rownames</strong> → el nombre de los genes.</p>
+<p><strong>rowData names</strong> → nombre general de las filas.</p>
+<p><strong>colnames</strong> → el nombre de las muestras.</p>
+<p><strong>colData names</strong> → nombre general de las columnas (muestras)</p>
 <hr />
 </div>
-<div id="ejercicio-con-spatiallibd" class="section level1">
-<h1>Ejercicio con spatialLIBD</h1>
+<div id="ejercicio-explica-que-sucede-en-las-siguientes-líneas-de-código-de-r." class="section level2">
+<h2>Ejercicio: Explica que sucede en las siguientes líneas de código de R.</h2>
+<p><strong>Comando 1</strong></p>
+<pre class="r"><code>rse[1:2, ]</code></pre>
+<pre><code>## class: RangedSummarizedExperiment 
+## dim: 2 6 
+## metadata(0):
+## assays(1): counts
+## rownames(2): gene_1 gene_2
+## rowData names(1): feature_id
+## colnames(6): A B ... E F
+## colData names(1): Treatment</code></pre>
+<ul>
+<li>Obtenemos los primeros dos genes de todas las muestras.</li>
+</ul>
+<p><strong>Comando 2</strong></p>
+<pre class="r"><code>rse[, c(&quot;A&quot;, &quot;D&quot;, &quot;F&quot;)]</code></pre>
+<pre><code>## class: RangedSummarizedExperiment 
+## dim: 200 3 
+## metadata(0):
+## assays(1): counts
+## rownames(200): gene_1 gene_2 ... gene_199 gene_200
+## rowData names(1): feature_id
+## colnames(3): A D F
+## colData names(1): Treatment</code></pre>
+<ul>
+<li>Obtenemos todos los genes de las muestras A, D y F.</li>
+</ul>
+<hr />
+</div>
+<div id="ejercicio-con-spatiallibd" class="section level2">
+<h2>Ejercicio con spatialLIBD</h2>
+<p><strong>Descarga un PDF que reproduzca la imagen de la diapositiva. Incluye ese PDF en tu repositorio de notas del curso.</strong></p>
+<pre class="r"><code>## Descarguemos unos datos de spatialLIBD
+sce_layer &lt;- spatialLIBD::fetch_data(&quot;sce_layer&quot;)</code></pre>
+<pre><code>## snapshotDate(): 2020-10-27</code></pre>
+<pre><code>## using temporary cache /tmp/RtmpREviSE/BiocFileCache</code></pre>
+<pre><code>## adding rname &#39;https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1&#39;</code></pre>
+<pre><code>## 2021-02-24 12:00:17 loading file /tmp/RtmpREviSE/BiocFileCache/ed2430aa746a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</code></pre>
+<pre class="r"><code>## Revisemos el tamaño de este objeto
+pryr::object_size(sce_layer)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;pryr&#39;:
+##   method      from
+##   print.bytes Rcpp</code></pre>
+<pre><code>## 34 MB</code></pre>
+<pre class="r"><code>#iSEE::iSEE(sce_layer)</code></pre>
+<ul>
+<li>La imagen se encuentra en el archivo <em>ReducedDimensionPlot1.pdf</em></li>
+</ul>
+<p><strong>Explora en con un heatmap la expresión de los genes MOBP, MBP y PCP4. Si hacemos un clustering (agrupamos los genes), ¿cúales genes se parecen más?</strong></p>
+<ul>
+<li>Son mas parecidos MOBP y MBP, como podemos observar en la imagen de <em>ComplexHeatmapPlot2.pdf</em></li>
+</ul>
+<p><strong>¿En qué capas se expresan más los genes MOBP y MBP?</strong></p>
+</div>
 </div>
 
 
