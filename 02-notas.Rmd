@@ -1,3 +1,8 @@
+---
+output: html_document
+---
+# SummarizedExperiment
+
 ```{r}
 ## Lets build our first SummarizedExperiment object
 library("SummarizedExperiment")
@@ -55,5 +60,23 @@ rowData(rse) # es idéntico a 'mcols(rowRanges(rse))'
 
 ## Tabla con información de las muestras
 colData(rse)
+
+## Explora el objeto rse de forma interactiva
+library("iSEE")
+iSEE::iSEE(rse)
+```
+
+---
+
+# Ejercicio con spatialLIBD
+
+```{r}
+## Descarguemos unos datos de spatialLIBD
+sce_layer <- spatialLIBD::fetch_data("sce_layer")
+
+## Revisemos el tamaño de este objeto
+pryr::object_size(sce_layer)
+
+iSEE::iSEE(sce_layer)
 ```
 
