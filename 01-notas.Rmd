@@ -1,4 +1,6 @@
-Licenciatura en ciencias genómicas -Bioinformática y estadística 2
+Universidad Nacional Autónoma - Licenciatura en ciencias genómicas
+
+Bioinformática y estadística 2 - Análisis de datos de secuenciación masiva (Dr. Leonardo Collado)
 
 **Salvador González Juárez**
 

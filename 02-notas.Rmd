@@ -1,6 +1,8 @@
----
-output: html_document
----
+Universidad Nacional Autónoma - Licenciatura en ciencias genómicas
+
+Bioinformática y estadística 2 - Análisis de datos de secuenciación masiva (Dr. Leonardo Collado)
+
+**Salvador González Juárez**
 
 # Notas 24 de marzo
 
@@ -141,7 +143,7 @@ pryr::object_size(sce_layer)
 
 **¿En qué capas se expresan más los genes MOBP y MBP?**
 
-- Ambos genes tienen más presencia en las capas WM, L6 y un poco en L1., como podemos observar en la imagen de *ComplexHeatmapPlot1.pdf*
+- Ambos genes tienen más presencia en las capas WM, L6 y un poco en L1, como podemos observar en la imagen de *ComplexHeatmapPlot1.pdf*
 
 # Datos de RNA-seq a través de recount3
 

@@ -1,11 +1,17 @@
+Universidad Nacional Autónoma - Licenciatura en ciencias genómicas
+
+Bioinformática y estadística 2 - Análisis de datos de secuenciación masiva (Dr. Leonardo Collado)
+
+**Salvador González Juárez**
 
 # Modelos estadísticos
 
 ## Regresion Lineal 
 
 En una regresión lineal el objetivo es encontrar la relación entre dos variables.
- 
-Y = B_0 + B_1 + \epsilon
+$$Y=\beta_0-\beta_1X+\epsilon$$
+
+Podemos generar regresiones lineales usando la función 'model.matrix()', como se muestra a continuación:
 
 ```{r}
 ## ?model.matrix
@@ -16,6 +22,7 @@ colnames(mat)
 # Interpretacion del nombre de las columnas de mat
 summary(lm(log(Volume) ~ log(Height) + log(Girth), data = trees))
 ```
+
 ## ExploreModelMatrix
 
 Es un paquete de Bioconductor que nos ayuda a entender los modelos estadísticos que estamos usando gracias a visualizaciones.
@@ -48,6 +55,7 @@ app <- ExploreModelMatrix(
 )
 #if (interactive()) shiny::runApp(app)
 ```
+
 **Ejemplo 2**
 
 ```{r}
@@ -93,6 +101,8 @@ app <- ExploreModelMatrix(sampleData = sampleData,
 
 ## Datos de SRP045638
 
+Voy a usar datos de SRP045638 procesados con recount3. Por lo tanto, descargo los datos con los siguientes comandos:
+
 ```{r}
 library("recount3")
 
@@ -105,6 +115,11 @@ rse_gene_SRP045638 <- create_rse(
     )
 )
 
+```
+
+Ahora, es necesario obtener el número de lecturas para cada una de las muestras, en lugar de los datos a nivel de nucleótidos. Además, con el siguiente código podemos explorar la información contenida en las categorias, que representan variables del experimento.        
+
+```{R}
 assay(rse_gene_SRP045638, "counts") <- compute_read_counts(rse_gene_SRP045638)
 
 rse_gene_SRP045638$sra.sample_attributes[1:3]
@@ -170,6 +185,8 @@ round(nrow(rse_gene_SRP045638) / nrow(rse_gene_SRP045638_unfiltered) * 100, 2)
 ```
 
 ## Normalización de datos
+
+Es necesario normalizar los datos asumiendo que la mayoria de los genes no se estan expresando diferencialmente. El objetivo es redudir la incidencia de falsos positivos.
 
 ```{r}
 library("edgeR") # BiocManager::install("edgeR", update = FALSE)
@@ -264,6 +281,7 @@ col.sex <- as.character(col.sex)
 ## MDS por sexo
 plotMDS(vGene$E, labels = df$Sex, col = col.sex)
 ```
+
 ## Ejercicio
 
 ```{r, out.height="1000px"}
